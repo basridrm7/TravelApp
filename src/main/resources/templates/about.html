@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:include="~{fragments/head}"/>
+
+<!-- Navbar -->
+<th:block th:include="~{fragments/navbar}"/>
+<!-- EO: Navbar -->
 <body>
+
+<div class="page" id="secondary-page">
+    <div class="container" id="secondary-page-container">
+        <div class="page-heading text-center">
+            <h1>ABOUT US</h1>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

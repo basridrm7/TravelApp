@@ -1,31 +1,101 @@
-<header>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="/">Travelista.</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Destinations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hotels</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Trip Finder</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-</header>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          rel="stylesheet"/>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+        <a sec:authorize="hasAuthority('USER')" class="navbar-brand" th:href="@{/home}">Travelista.</a>
+        <a sec:authorize="isAnonymous()" class="navbar-brand" th:href="@{/}">Travelista.</a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li sec:authorize="hasAuthority('USER')" class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+                </li>
+
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/destinations}">Destinations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/hotels}">Hotels</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/trip-finder}">Trip Finder</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/about}">About</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a th:href="@{/register}" class="btn btn-outline-light mr-2 ml-3">Register</a>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item">
+                    <a th:href="@{/login}" class="btn btn-light">Login</a>
+                </li>
+
+                <li sec:authorize="hasAuthority('USER')" class="nav-item">
+
+                    <div class="dropdown">
+                        <button class="nav-link btn btn-outline-secondary dropdown-toggle ml-3"
+                                type="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            Profile
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" th:href="@{/auth/profile}">
+                                <i class="fa fa-user text-info"></i>
+                                View Profile
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+
+                            <div class="dropdown-item">
+                                <form th:action="@{/logout}" method="post">
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fa fa-sign-out-alt text-info"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<!-- Navbar -->
+
+</body>
+</html>
