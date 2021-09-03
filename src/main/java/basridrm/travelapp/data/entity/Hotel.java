@@ -22,6 +22,9 @@ public class Hotel extends BaseEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "image_source", nullable = false, unique = true)
+    private String imgSrc;
+
     @ManyToMany(targetEntity = Room.class, fetch = FetchType.EAGER)
     @JoinTable(
             name = "hotel_rooms",

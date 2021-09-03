@@ -1,6 +1,5 @@
 package basridrm.travelapp.service.implementations;
 
-import basridrm.travelapp.data.entity.Role;
 import basridrm.travelapp.data.entity.User;
 import basridrm.travelapp.data.repository.RoleRepository;
 import basridrm.travelapp.data.repository.UserRepository;
@@ -73,8 +72,4 @@ public class UserServiceImpl implements UserService {
     public boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
-
-    /*public boolean areUsernameAndEmailAvailable(String username, String email) {
-        return isUsernameAvailable(username) && isEmailAvailable(email);
-    }*/
 }

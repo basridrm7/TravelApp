@@ -1,12 +1,10 @@
 package basridrm.travelapp.web.controller;
 
 import basridrm.travelapp.data.entity.User;
-import basridrm.travelapp.data.repository.UserRepository;
 import basridrm.travelapp.dto.binding.auth.UserRegisterBindingModel;
-import basridrm.travelapp.service.implementations.RoleServiceImpl;
+import basridrm.travelapp.dto.view.UserProfileViewModel;
 import basridrm.travelapp.service.implementations.UserServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,20 +19,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class AuthController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
+    //private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     private final UserServiceImpl userService;
+    private final ModelMapper modelMapper;
 
-    public AuthController(UserServiceImpl userService, UserRepository userRepository, RoleServiceImpl roleService) {
+    public AuthController(UserServiceImpl userService, ModelMapper modelMapper) {
         this.userService = userService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/login")
     @PreAuthorize("isAnonymous()")
-    public String login() {
+    public String getLoginForm() {
         User user = userService.getPrincipal();
         if (user != null) {
             return "home";
@@ -43,7 +44,8 @@ public class AuthController {
     }
 
     @GetMapping("/home")
-    public String getHomeForLoggedUsers() {
+    public String getHomeForLoggedUsers(Model model) {
+        model.addAttribute("user", userService.getPrincipal());
         return "home";
     }
 
@@ -77,6 +79,15 @@ public class AuthController {
         userService.register(user);
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/auth/profile")
+    public String getProfile(Principal principal, Model model) {
+        UserProfileViewModel user = this.modelMapper
+                                    .map(this.userService.loadUserByUsername(principal.getName()),
+                                            UserProfileViewModel.class);
+        model.addAttribute("userProfile", user);
+        return "auth/profile";
     }
 
     @InitBinder

@@ -12,6 +12,9 @@ public class Destination extends BaseEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @Column(name = "image_source", nullable = false, unique = true)
+    private String imgSrc;
+
     @OneToMany(mappedBy = "destination", targetEntity = Hotel.class,
             fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Hotel> hotels;

@@ -9,6 +9,59 @@
 <th:block th:include="~{fragments/navbar}"/>
 <!-- EO: Navbar -->
 <body>
-  <h1>User Profile</h1>
+<div class="page">
+    <div class="page-section">
+        <div class="inner-section">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-10 mt-5 pt-5">
+                        <div class="row bg-light z-depth-3 rounded-left rounded-right">
+                            <div class="col-sm-4 bg-info rounded-left">
+                                <div class="card-block text-center text-white">
+                                    <i class="fas fa-user-tie fa-7x mt-5"></i>
+                                    <h3 class="font-weight-bold mt-4">Username:</h3>
+                                    <h2 class="username-heading" th:text="${userProfile.username}"></h2>
+                                    <i class="far fa-edit fa-2x mb-4 mt-3"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 bg-white rounded-right">
+
+                                <h3 class="mt-3 text-center text-info">Profile Details</h3>
+                                <hr class="bg-info mt-0 w-50">
+
+                                <div class="row mt-5">
+
+                                    <div class="col-sm-6">
+                                        <h4 class="font-weight-bold text-center">Name:</h4>
+                                        <h5 class="text-muted text-center" th:text="${userProfile.name}"></h5>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <h4 class="font-weight-bold text-center">Surname:</h4>
+                                        <h5 class="text-muted text-center" th:text="${userProfile.surname}"></h5>
+                                    </div>
+
+                                </div>
+
+                                <hr class="bg-info">
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-6">
+                                        <h4 class="font-weight-bold text-center">Email:</h4>
+                                        <h5 class="text-muted text-center" th:text="${userProfile.email}"></h5>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4 class="font-weight-bold text-center">City:</h4>
+                                        <h5 class="text-muted text-center" th:text="${userProfile.city}"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -10,11 +10,41 @@
 <!-- EO: Navbar -->
 <body>
 
-<div class="page" id="secondary-page">
-    <div class="container" id="secondary-page-container">
-        <div class="page-heading text-center">
-            <h1>HOME</h1>
-            <h1>Logged in USER.</h1>
+<div class="page">
+    <div class="page-section d-flex justify-content-center">
+        <div class="inner-section">
+            <div class="container mb-5">
+                <div class="page-heading text-center">
+                    <!--th:text=" 'Hello, ' + ${user.username} + '!'-->
+                    <h1 class="display-4">Hello, <span class="text-info font-weight-bolder"
+                                                       th:text="${user.username}"></span>!
+                    </h1>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="home-heading">
+                        <h1 class="text-white text-center">Explore the world's most incredible places</h1>
+                        <h5 class="text-white text-center">From learning about the historical and political context
+                            of a destination <br> to finding some really great hikes,
+                            each new place has something to discover.</h5>
+                    </div>
+                </div>
+                <div class="row justify-content-center flex-row mt-4 mb-5">
+                    <div class="d-flex justify-content-end mr-3">
+                        <div class="hotels-button">
+                            <a th:href="@{/hotels}">
+                                <button id="hotel-btn" type="button" class="btn btn-info">HOTELS</button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start">
+                        <div class="destinations-button">
+                            <a th:href="@{/destinations}">
+                                <button id="dest-btn" type="button" class="btn btn-outline-info">DESTINATIONS</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
