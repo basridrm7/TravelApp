@@ -60,9 +60,10 @@ public class DestinationsController {
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String saveEditedDestination(@Valid @ModelAttribute("destinationsEditForm") DestinationBindingModel destinationBindingModel,
-                                        @PathVariable("id") Long destinationId,
-                                        BindingResult bindingResult) throws NotFoundException {
+                                        BindingResult bindingResult,
+                                        @PathVariable("id") Long destinationId, Model model) throws NotFoundException {
         if(bindingResult.hasErrors()) {
+            model.addAttribute("destinationsEditForm", destinationBindingModel);
             return "destination/destinations-edit";
         }
 
