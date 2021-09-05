@@ -70,18 +70,34 @@
                         </button>
 
                         <div class="dropdown-menu">
-                            <div class="dropdown-item">
+
                                 <form th:action="@{/logout}" method="post">
-                                    <button type="submit" class="dropdown-item">
+                                    <button type="submit" class="dropdown-item text-left">
                                         <i class="fa fa-sign-out-alt text-info"></i>
                                         Logout
                                     </button>
                                 </form>
-                            </div>
-                            <!--<div class="dropdown-divider"></div>-->
-                            <a class="dropdown-item" th:href="@{/auth/profile}">
+
+
+                            <a class="dropdown-item text-left" th:href="@{/auth/profile}">
                                 <i class="fa fa-user text-info"></i>
                                 View Profile
+                            </a>
+
+                            <div class="dropdown-divider" sec:authorize="hasAuthority('ADMIN')"></div>
+
+                            <a class="dropdown-item text-left"
+                               sec:authorize="hasAuthority('ADMIN')"
+                               th:href="@{/destinations/add}">
+                                <i class="fas fa-map-marker-alt text-info"></i>
+                                Add Destination
+                            </a>
+
+                            <a class="dropdown-item text-left"
+                               sec:authorize="hasAuthority('ADMIN')">
+                               <!--th:href="@{/hotels/add}"-->
+                                <i class="fas fa-hotel text-info"></i>
+                                Add Hotel
                             </a>
                         </div>
 

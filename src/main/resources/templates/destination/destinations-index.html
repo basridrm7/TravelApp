@@ -13,20 +13,33 @@
 <div class="page">
     <div class="page-section">
         <div class="inner-section py-5 d-block">
-            <div class="page-heading text-center">
-                <h1>DESTINATIONS</h1>
+            <div class="page-heading text-center mb-5">
+                <h2>OUR DESTINATIONS</h2>
+                <p class="secondary-heading">Choose Your Next Destination</p>
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-4">
+                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" th:each="destination : ${destinations}">
+                        <div class="card h-100 border-0">
 
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-4">
+                            <img class="card-img-top" th:src="@{${'images/destination/' + destination.imgSrc}}"
+                                 alt="Destination">
 
+                            <div class="card-info">
+                                <div class="dest-text text-center">
+                                    <h3 th:text="${destination.name}"></h3>
+                                </div>
+                                <div class="card-buttons">
+                                    <a th:href="@{/hotels}" class="btn btn-info">View Hotels</a>
+                                    <a th:href="@{/destinations/edit/{id}(id=${destination.id})}" class="btn btn-danger ml-2"
+                                       sec:authorize="hasAuthority('ADMIN')">Edit Destination</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-4">
+                    <!--<div class="col-md-6 col-lg-4 mb-4 mb-lg-4">
 
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

@@ -36,7 +36,12 @@ body {
     justify-content: center;
     flex-direction: column;
 }
-/* --- MAIN STYLES END---*/
+
+.secondary-heading {
+    font-size: 18px;
+    font-weight: lighter;
+}
+/* --- MAIN STYLES END ---*/
 
 /* --- INDEX ---*/
 .discover-heading {
@@ -74,7 +79,7 @@ body {
     font-size: 4rem;
     font-weight: bold;
 }
-/* --- INDEX END---*/
+/* --- INDEX END ---*/
 
 /* --- HOME ---*/
 .home-heading h1 {
@@ -108,7 +113,76 @@ body {
     font-weight: bolder;
     font-family: "Raleway", sans-serif;
 }
-/* --- HOME END---*/
+/* --- HOME END ---*/
+
+/* --- DESTINATIONS ---*/
+.card {
+    position: relative;
+    box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.card .card-info .card-img-top {
+    transition: .3s ease-in-out;
+}
+
+.card:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: .3s all;
+    background: -webkit-gradient(linear,left top,left bottom,
+    from(transparent), color-stop(18%,transparent),
+    color-stop(99%,rgba(0,0,0,.8)), to(rgba(0,0,0,.8)));
+}
+
+.card-img-top img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+}
+
+.card-info {
+    position: absolute;
+    bottom: 15px;
+    display: block;
+    width: 100%;
+}
+
+.dest-text {
+    z-index: 2;
+    position: relative;
+    color: white;
+    display: block;
+    width: 100%;
+    font-family: "Raleway", sans-serif;
+}
+
+.card-buttons {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 3;
+    color: white;
+    opacity: 0;
+    transition: 0.3s all;
+    margin-bottom: 5px;
+}
+
+.card:hover .card-buttons {
+    opacity: 1;
+}
+/* --- DESTINATIONS END ---*/
 
 /* --- REGISTER VALIDATIONS ---*/
 .invalid-feedback {

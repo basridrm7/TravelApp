@@ -1,19 +1,21 @@
 package basridrm.travelapp.dto.binding;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class DestinationBindingModel {
 
     private Long id;
 
     @NotBlank(message = "Name cannot be blank")
-    @Size(min = 3, max = 15, message = "Name must be between 3 and 15 characters")
+    @Size(min = 3, max = 30, message = "Name length must be between 3 and 30 characters")
     private String name;
 
-    @NotEmpty(message = "Image source cannot be blank")
+    @NotBlank(message = "Image source cannot be blank")
+    @Pattern(regexp = "([^\\s]+(\\.(?i)(jpe?g|png))$)", message = "Invalid image source")
     private String imgSrc;
+
+    public DestinationBindingModel() {
+    }
 
     public Long getId() {
         return id;

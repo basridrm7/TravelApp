@@ -2,12 +2,15 @@ package basridrm.travelapp.web.controller;
 
 import basridrm.travelapp.dto.binding.DestinationBindingModel;
 import basridrm.travelapp.service.implementations.DestinationServiceImpl;
+import javassist.NotFoundException;
 import org.dom4j.rule.Mode;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/destinations")
@@ -27,8 +30,44 @@ public class DestinationsController {
 
     @GetMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String addDestination(DestinationBindingModel destinationBindingModel, Model model) {
-        model.addAttribute("destinations", this.destinationService.findAll());
+    public String addDestination(@ModelAttribute DestinationBindingModel destinationBindingModel, Model model) {
+
+        model.addAttribute("destinationsAddForm", destinationBindingModel);
         return "destination/destinations-add";
     }
+
+    @PostMapping("/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String saveAddedDestination(@Valid @ModelAttribute("destinationsAddForm") DestinationBindingModel destinationBindingModel,
+                                       BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("destinationsAddForm", destinationBindingModel);
+            return "destination/destinations-add";
+        }
+
+        this.destinationService.addDestination(destinationBindingModel);
+        return "redirect:/destinations";
+    }
+
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getEditDestinationForm(@PathVariable("id") Long destinationId, Model model) throws NotFoundException {
+        model.addAttribute("destinationsEditForm", this.destinationService.findById(destinationId));
+        return "destination/destinations-edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String saveEditedDestination(@Valid @ModelAttribute("destinationsEditForm") DestinationBindingModel destinationBindingModel,
+                                        @PathVariable("id") Long destinationId,
+                                        BindingResult bindingResult) throws NotFoundException {
+        if(bindingResult.hasErrors()) {
+            return "destination/destinations-edit";
+        }
+
+        this.destinationService.editDestination(destinationId, destinationBindingModel);
+        return "redirect:/destinations";
+    }
+
 }

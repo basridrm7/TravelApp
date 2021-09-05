@@ -30,6 +30,14 @@ public class Destination extends BaseEntity {
         this.name = name;
     }
 
+    public String getImgSrc() {
+        return imgSrc;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
+    }
+
     public List<Hotel> getHotels() {
         return hotels;
     }
