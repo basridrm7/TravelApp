@@ -3,7 +3,6 @@ package basridrm.travelapp.web.controller;
 import basridrm.travelapp.dto.binding.DestinationBindingModel;
 import basridrm.travelapp.service.implementations.DestinationServiceImpl;
 import javassist.NotFoundException;
-import org.dom4j.rule.Mode;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,12 +61,19 @@ public class DestinationsController {
     public String saveEditedDestination(@Valid @ModelAttribute("destinationsEditForm") DestinationBindingModel destinationBindingModel,
                                         BindingResult bindingResult,
                                         @PathVariable("id") Long destinationId, Model model) throws NotFoundException {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("destinationsEditForm", destinationBindingModel);
             return "destination/destinations-edit";
         }
 
         this.destinationService.editDestination(destinationId, destinationBindingModel);
+        return "redirect:/destinations";
+    }
+
+    @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteDestination(@ModelAttribute(name="deleteId") Long deleteId) {
+        this.destinationService.deleteDestination(deleteId);
         return "redirect:/destinations";
     }
 

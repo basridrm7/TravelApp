@@ -65,6 +65,12 @@ public class DestinationServiceImpl implements DestinationService {
         this.destinationRepository.save(destination);
     }
 
+    @Override
+    @Transactional
+    public void deleteDestination(Long destinationDeleteId) {
+        this.destinationRepository.deleteById(destinationDeleteId);
+    }
+
     public boolean imageSourceExists(String imgSrc) {
 
         String path = "classpath:/images/destination/" + imgSrc;
@@ -72,6 +78,7 @@ public class DestinationServiceImpl implements DestinationService {
 
         return Files.exists(pathCheck);
     }
+
 
 
 }

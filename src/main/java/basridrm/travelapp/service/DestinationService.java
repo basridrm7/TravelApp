@@ -12,4 +12,5 @@ public interface DestinationService {
     DestinationBindingModel findById(Long destinationId) throws NotFoundException;
     Destination addDestination(DestinationBindingModel destinationBindingModel);
     void editDestination(Long destinationId, DestinationBindingModel destinationBindingModel) throws NotFoundException;
+    void deleteDestination(Long deleteId);
 }

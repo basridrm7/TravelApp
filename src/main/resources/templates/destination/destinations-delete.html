@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:include="~{fragments/head}"/>
+
+<!-- Navbar -->
+<th:block th:include="~{fragments/navbar}"/>
+<!-- EO: Navbar -->
+<body>
+
+<div th:fragment="delete-dest">
+
+    <div class="modal fade" id="deleteModal" tabindex="-1"
+         role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Destination</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete that destination?</p>
+                    <p class="text-info font-italic">
+                        Note: We do not recommend you to delete destinations! <br>
+                        It will also delete all the hotels that contain the given destination!
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <form id="formDelete" th:action="@{/destinations/delete}" th:method="post">
+                        <input id="deleteId" name="deleteId" type="hidden" value=""/>
+                        <button id="btnDelete" type="submit" class="btn btn-danger">Confirm</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
