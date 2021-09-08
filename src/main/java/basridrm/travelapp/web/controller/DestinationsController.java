@@ -73,6 +73,7 @@ public class DestinationsController {
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteDestination(@ModelAttribute(name="deleteId") Long deleteId) {
+
         this.destinationService.deleteDestination(deleteId);
         return "redirect:/destinations";
     }

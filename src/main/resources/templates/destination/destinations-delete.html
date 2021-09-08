@@ -18,15 +18,20 @@
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Destination</h5>
+
+                <div class="modal-header flex-column align-items-center">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <div class="icon-box">
+                        <i class="far fa-times-circle text-danger"></i>
+                    </div>
+                    <h3 class="modal-title" id="exampleModalLabel">Are you sure?</h3>
                 </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete that destination?</p>
-                    <p class="text-info font-italic">
+
+                <div class="modal-body text-center">
+                    <p>Do you really want to delete that destination?</p>
+                    <p class="text-danger font-italic">
                         Note: We do not recommend you to delete destinations! <br>
                         It will also delete all the hotels that contain the given destination!
                     </p>
