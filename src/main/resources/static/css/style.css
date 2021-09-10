@@ -127,7 +127,7 @@ body {
 /* --- DESTINATIONS ---*/
 .card {
     position: relative;
-    box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
@@ -210,11 +210,73 @@ body {
 
 /* --- HOTELS END ---*/
 .card-hotel {
+    position: relative;
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
     background-color: #fff;
     border-radius: 5px;
     border: none;
 }
 
+.card-hotel .card-hotel-img {
+    overflow: hidden;
+    position: relative;
+    background: #000;
+    z-index: 0;
+}
+
+.card-hotel .card-hotel-img img {
+    width: 100%;
+    transition: all 0.4s ease-in-out 0s;
+}
+
+.card-hotel:hover .card-hotel-img img {
+    opacity: 0.6;
+    transform: scale(1.1);
+}
+
+.card-hotel .card-hotel-img .effect::before{
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    transition: all 0.4s ease-in-out;
+    transform: scale(0, 1);
+}
+
+.card-hotel:hover .card-hotel-img .effect:before {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    transform: scale(1, 1);
+}
+
+.card-hotel .card-hotel-img .effect::after{
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    transition: all 0.4s ease-in-out;
+    box-sizing: border-box;
+    transform: scale(1, 0);
+}
+
+.card-hotel:hover .card-hotel-img .effect:after {
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    transform: scale(1, 1);
+}
+
+.card-hotel-buttons .user-buttons .btn-outline-info {
+    color: #000;
+}
+
+.card-hotel-buttons .user-buttons .btn-outline-info:hover {
+    color: white;
+}
 /* --- DELETE MODAL ---*/
 #deleteModal .modal-header .icon-box i {
     font-size: 86px;
