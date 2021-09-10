@@ -94,8 +94,8 @@
                             </a>
 
                             <a class="dropdown-item text-left"
-                               sec:authorize="hasAuthority('ADMIN')">
-                               <!--th:href="@{/hotels/add}"-->
+                               sec:authorize="hasAuthority('ADMIN')"
+                               th:href="@{/hotels/add}">
                                 <i class="fas fa-hotel text-info"></i>
                                 Add Hotel
                             </a>

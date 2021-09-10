@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:include="~{fragments/head}"/>
+
+<!-- Navbar -->
+<th:block th:include="~{fragments/navbar}"/>
+<!-- EO: Navbar -->
+<body style="background-image: none">
+
+<div class="page-section">
+    <div class="inner-section-secondary py-5 d-block">
+        <div class="page-heading text-center mb-4">
+            <h2 class="text-dark">OUR HOTELS</h2>
+            <p class="secondary-heading text-info">Choose Your Next Hotel</p>
+        </div>
+        <div class="container">
+
+            <!-- Section: Sidebar -->
+            <section>
+
+                <div class="row">
+                    <div class="col-md-4 col-lg-3 mb-4 mb-lg-4">
+                        <!-- Section: Destinations -->
+                        <section class="mb-5">
+                            <h5 class="mb-3">Destinations</h5>
+
+                            <div class="text-muted text-uppercase mb-1" th:each="destination : ${destinations}">
+
+                                <p class="mb-2">
+                                    <a href="#!" class="card-link text-info" th:text="${destination.name}"></a>
+                                </p>
+
+                            </div>
+                        </section>
+                        <!-- Section: Destinations End -->
+
+                        <!-- Section: Price -->
+                        <section class="mb-5">
+
+                            <h5 class="mb-3">Price</h5>
+
+                            <div class="form-check mb-2">
+                                <input type="radio" class="form-check-input" id="under100" name="materialExampleRadios">
+                                <label class="form-check-label small text-uppercase card-link" for="under100">Under
+                                    €100</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="radio" class="form-check-input" id="100to250" name="materialExampleRadios">
+                                <label class="form-check-label small text-uppercase card-link" for="100to250">€100 to
+                                    €250</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="radio" class="form-check-input" id="250to400" name="materialExampleRadios">
+                                <label class="form-check-label small text-uppercase card-link" for="250to400">€250 to
+                                    €400</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="radio" class="form-check-input" id="400above" name="materialExampleRadios">
+                                <label class="form-check-label small text-uppercase card-link" for="400above">€400 &
+                                    Above</label>
+                            </div>
+
+                        </section>
+                        <!-- Section: Price End -->
+                    </div>
+
+                    <!-- Section: Hotels -->
+                    <div class="col-md-8 col-lg-9 mb-4 mb-lg-4">
+                        <div class="row">
+
+                            <div class="col-md-12 col-lg-6 mb-4 mb-lg-4 text-center" th:each="hotel : ${hotels}">
+                                <!-- Card -->
+                                <div class="card-hotel h-100 border-1">
+                                    <img class="card-img-top" th:src="@{${'images/hotel/' + hotel.imgSrc}}"
+                                         alt="Destination">
+
+                                    <div class="div card-details">
+                                        <div class="card-body">
+                                            <div class="hotel-info text-left text-dark">
+                                                <h5 class="hotel-name-text" th:text="${hotel.name}"></h5>
+                                                <div class="hotel-dest">
+                                                <span class="icon d-inline-block">
+                                                <i class="fas fa-map-marker-alt text-info"></i>
+                                                    </span>
+                                                    <h6 class="hotel-dest-text d-inline-block text-info"
+                                                        th:text="${hotel.destination.name}"></h6>
+                                                </div>
+                                                <p class="text-secondary mb-1" th:text="${#strings.abbreviate(hotel.description, 90)}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="card-buttons">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card End -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Section: Hotels End -->
+
+                </div>
+
+
+            </section>
+            <!-- Section: Sidebar End -->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

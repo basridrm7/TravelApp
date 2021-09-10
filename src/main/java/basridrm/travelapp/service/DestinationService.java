@@ -13,4 +13,5 @@ public interface DestinationService {
     Destination addDestination(DestinationBindingModel destinationBindingModel);
     void editDestination(Long destinationId, DestinationBindingModel destinationBindingModel) throws NotFoundException;
     void deleteDestination(Long deleteId);
+    List<String> getAllDestinationNames();
 }

@@ -32,7 +32,7 @@ public class DestinationServiceImpl implements DestinationService {
 
     @Override
     public List<DestinationBindingModel> findAll() {
-        return destinationRepository.findAll()
+        return this.destinationRepository.findAll()
                 .stream()
                 .map(destination -> this.modelMapper.map(destination, DestinationBindingModel.class))
                 .collect(Collectors.toList());
@@ -58,7 +58,7 @@ public class DestinationServiceImpl implements DestinationService {
     public void editDestination(Long destinationId, DestinationBindingModel destinationBindingModel) throws NotFoundException {
         Destination destination = this.destinationRepository
                 .findById(destinationId)
-                .orElseThrow( () -> new NotFoundException("Destination with this id was not found!"));
+                .orElseThrow(() -> new NotFoundException("Destination with this id was not found!"));
 
         destination.setName(destinationBindingModel.getName());
         destination.setImgSrc(destinationBindingModel.getImgSrc());
@@ -71,14 +71,18 @@ public class DestinationServiceImpl implements DestinationService {
         this.destinationRepository.deleteById(destinationDeleteId);
     }
 
-    public boolean imageSourceExists(String imgSrc) {
+    @Override
+    public List<String> getAllDestinationNames() {
+        return this.destinationRepository.findAll()
+                .stream()
+                .map(Destination::getName)
+                .collect(Collectors.toList());
+    }
 
+    public boolean imageSourceExists(String imgSrc) {
         String path = "classpath:/images/destination/" + imgSrc;
         Path pathCheck = Paths.get(path);
 
         return Files.exists(pathCheck);
     }
-
-
-
 }
