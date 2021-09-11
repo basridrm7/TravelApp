@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="card-buttons">
 
-                                    <a th:href="@{/hotels}" class="btn btn-info">View Hotels</a>
+                                    <a th:href="@{/hotels/destination/{id}(id=${destination.id})}" class="btn btn-info">View Hotels</a>
 
                                     <a th:href="@{/destinations/edit/{id}(id=${destination.id})}"
                                        class="btn btn-success ml-2"

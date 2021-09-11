@@ -7,10 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -30,6 +27,13 @@ public class HotelsController {
     public String getHotelsPage(Model model) {
         model.addAttribute("destinations", this.destinationService.findAll());
         model.addAttribute("hotels", this.hotelService.findAll());
+        return "/hotel/hotels-index";
+    }
+
+    @GetMapping("/destination/{id}")
+    public String getHotelsByDestination(@PathVariable("id") Long destinationId, Model model) {
+        model.addAttribute("destinations", this.destinationService.findAll());
+        model.addAttribute("hotels", this.hotelService.findAllByDestination(destinationId));
         return "/hotel/hotels-index";
     }
 

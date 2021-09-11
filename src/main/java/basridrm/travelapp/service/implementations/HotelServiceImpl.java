@@ -42,6 +42,13 @@ public class HotelServiceImpl implements HotelService {
                 .orElseThrow(() -> new NotFoundException("Cannot find hotel with the given id!"));
     }
 
+    public List<HotelBindingModel> findAllByDestination(Long destinationId) {
+        return this.hotelRepository.findAllByDestination_Id(destinationId)
+                .stream()
+                .map(hotel -> this.modelMapper.map(hotel, HotelBindingModel.class))
+                .collect(Collectors.toList());
+    }
+
     @Override
     @Transactional
     public Hotel addHotel(HotelBindingModel hotelBindingModel) {
