@@ -19,7 +19,7 @@ public class Hotel extends BaseEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 1000, nullable = false)
     private String description;
 
     @Column(name = "image_source", nullable = false, unique = true)

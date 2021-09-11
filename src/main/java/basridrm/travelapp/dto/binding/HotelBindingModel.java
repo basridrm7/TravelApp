@@ -10,18 +10,18 @@ public class HotelBindingModel {
     private Long id;
 
     @NotBlank(message = "Name cannot be blank")
-    @Size(min = 3, max = 30, message = "Name length must be between 3 and 30 characters")
+    @Size(min = 3, max = 40, message = "Name length must be between 3 and 40 characters")
     private String name;
 
     @NotNull(message = "Destination cannot be blank")
     private DestinationBindingModel destination;
 
     @NotBlank(message = "Address cannot be blank")
-    @Size(min = 5, max = 50, message = "Address length must be between 5 and 50 characters")
+    @Size(min = 5, max = 70, message = "Address length must be between 5 and 70 characters")
     private String address;
 
     @NotBlank(message = "Description cannot be blank")
-    @Size(min = 10, max = 250, message = "Description length must be between 10 and 250 characters")
+    @Size(min = 10, max = 300, message = "Description length must be between 10 and 300 characters")
     private String description;
 
     @NotBlank(message = "Image source cannot be blank")

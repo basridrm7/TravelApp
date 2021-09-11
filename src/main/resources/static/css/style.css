@@ -208,7 +208,6 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-/* --- HOTELS END ---*/
 .card-hotel {
     position: relative;
     box-shadow: 0 7px 10px rgba(0, 0, 0, 0.5);
@@ -235,7 +234,7 @@ body {
     transform: scale(1.1);
 }
 
-.card-hotel .card-hotel-img .effect::before{
+.card-hotel .card-hotel-img .effect::before {
     content: "";
     position: absolute;
     left: 10px;
@@ -252,7 +251,7 @@ body {
     transform: scale(1, 1);
 }
 
-.card-hotel .card-hotel-img .effect::after{
+.card-hotel .card-hotel-img .effect::after {
     content: "";
     position: absolute;
     left: 10px;
@@ -277,6 +276,18 @@ body {
 .card-hotel-buttons .user-buttons .btn-outline-info:hover {
     color: white;
 }
+
+.dest-menu .text-uppercase .active{
+    font-weight: 500;
+    color: #17a2b8;
+}
+
+.dest-menu .text-uppercase a{
+    color: #6c757d;
+}
+
+/* --- HOTELS END ---*/
+
 /* --- DELETE MODAL ---*/
 #deleteModal .modal-header .icon-box i {
     font-size: 86px;

@@ -10,18 +10,24 @@
 <!-- EO: Navbar -->
 <body style="background-image: none">
 
-<!--<script type="text/javascript">
+<!--$('.dest-menu .text-uppercase a').on('click', '.card-link', function () {
+$(this).siblings().removeClass('active');
+$(this).toggleClass('active');
+});-->
+
+<script type="text/javascript">
     $(document).ready(function () {
-        $('.card-link').click(function () {
-            const value = $(this).attr('th:target');
-            if (value == 'all') {
-                $('.card-hotel').show('1000');
-            } else {
-                $('.card-hotel').filter('.' + value).show('1000');
+        let navlinks = document.querySelectorAll(".dest-menu .text-uppercase a");
+
+        let currentURL = window.location.href;
+
+        for (let i = 0; i < navlinks.length; i++) {
+            if (currentURL == navlinks[i]) {
+                navlinks[i].classList.add("active");
             }
-        });
+        }
     });
-</script>-->
+</script>
 
 <div class="page-section">
     <div class="inner-section-secondary py-5 d-block">
@@ -37,20 +43,20 @@
                 <div class="row">
                     <div class="col-md-4 col-lg-3 mb-4 mb-lg-4">
                         <!-- Section: Destinations -->
-                        <section class="mb-5">
+                        <section class="dest-menu mb-5">
                             <h5 class="mb-3 text-dark">Destinations</h5>
 
-                                <p class="mb-2">
-                                    <a th:href="@{/hotels}" class="card-link active text-muted text-uppercase mb-1">All
-                                    </a>
-                                </p>
+                            <div class="text-uppercase mb-2">
+                                <a th:href="@{/hotels}" class="card-link">All
+                                </a>
+                            </div>
 
-                                <div class="text-muted text-uppercase mb-1" th:each="destination : ${destinations}">
-                                    <p class="mb-2">
-                                        <a th:href="@{/hotels/destination/{id}(id=${destination.id})}" class="card-link text-secondary"
-                                           th:text="${destination.name}"></a>
-                                    </p>
-                                </div>
+                            <div class="text-uppercase mb-2" th:each="destination : ${destinations}">
+                                <a th:href="@{/hotels/destination/{id}(id=${destination.id})}"
+                                   class="card-link"
+                                   th:text="${destination.name}">
+                                </a>
+                            </div>
 
                         </section>
                         <!-- Section: Destinations End -->
