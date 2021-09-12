@@ -66,9 +66,7 @@
 </script>
 
  <!--Delete destination-->
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="destination/destinations-delete :: delete-dest">
-    Modal dialog for deleting product
-</div>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="destination/destinations-delete :: delete-dest"></div>
  <!--Delete destination-->
 
 </body>

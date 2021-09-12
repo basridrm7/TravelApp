@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:include="~{fragments/head}"/>
+
+<!-- Navbar -->
+<th:block th:include="~{fragments/navbar}"/>
+<!-- EO: Navbar -->
+<body>
+
+<div th:fragment="delete-hotel">
+
+    <div class="modal fade" id="deleteHotelModal" tabindex="-1"
+         role="dialog"
+         aria-labelledby="ModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header flex-column align-items-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="icon-box">
+                        <i class="far fa-times-circle text-danger"></i>
+                    </div>
+                    <h3 class="modal-title" id="ModalLabel">Are you sure?</h3>
+                </div>
+
+                <div class="modal-body text-center">
+                    <p>Do you really want to delete that hotel?</p>
+                    <p class="text-danger font-italic">
+                        Note: This action cannot be undone and <br>
+                        you will be unable to recover any data!
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <form id="formHotelDelete" th:action="@{/hotels/delete}" th:method="post">
+                        <input id="deleteHotelId" name="deleteHotelId" type="hidden" value=""/>
+                        <button id="btnDeleteHotel" type="submit" class="btn btn-danger">Confirm</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

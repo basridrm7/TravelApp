@@ -42,6 +42,7 @@ public class HotelServiceImpl implements HotelService {
                 .orElseThrow(() -> new NotFoundException("Cannot find hotel with the given id!"));
     }
 
+    @Override
     public List<HotelBindingModel> findAllByDestination(Long destinationId) {
         return this.hotelRepository.findAllByDestination_Id(destinationId)
                 .stream()
@@ -56,4 +57,26 @@ public class HotelServiceImpl implements HotelService {
 
         return this.hotelRepository.save(hotel);
     }
+
+    @Override
+    @Transactional
+    public void editHotel(Long hotelId, HotelBindingModel hotelBindingModel) throws NotFoundException {
+        Hotel hotel = this.hotelRepository
+                .findById(hotelId)
+                .orElseThrow(() -> new NotFoundException("Hotel with this id was not found!"));
+
+        hotel.setName(hotelBindingModel.getName());
+        hotel.setDestination(this.modelMapper.map(hotelBindingModel.getDestination(), Destination.class));
+        hotel.setAddress(hotelBindingModel.getAddress());
+        hotel.setDescription(hotelBindingModel.getDescription());
+        hotel.setImgSrc(hotelBindingModel.getImgSrc());
+        this.hotelRepository.save(hotel);
+    }
+
+    @Override
+    @Transactional
+    public void deleteHotel(Long hotelDeleteId) {
+        this.hotelRepository.deleteById(hotelDeleteId);
+    }
+
 }

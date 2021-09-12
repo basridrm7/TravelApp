@@ -26,6 +26,10 @@ $(this).toggleClass('active');
                 navlinks[i].classList.add("active");
             }
         }
+
+        $(document).on("click", ".open-delete-hotel-dialog ", function () {
+            $("#deleteHotelId").val($(this).data('id'));
+        });
     });
 </script>
 
@@ -101,7 +105,7 @@ $(this).toggleClass('active');
 
                             <div class="col-md-12 col-lg-6 mb-4 mb-lg-4 text-center" th:each="hotel : ${hotels}">
                                 <!-- Card -->
-                                <div class="card-hotel h-100 border-1">
+                                <div class="card-hotel h-100 border-0">
 
                                     <div class="card-hotel-img d-block">
                                         <img class="card-img-top" th:src="@{${'../../images/hotel/' + hotel.imgSrc}}"
@@ -124,10 +128,26 @@ $(this).toggleClass('active');
                                                    th:text="${#strings.abbreviate(hotel.description, 94)}"></p>
                                             </div>
 
-                                            <div class="card-hotel-buttons d-flex">
-                                                <div class="user-buttons">
+                                            <div class="card-hotel-buttons d-flex flex-column align-items-start">
+                                                <div class="user-buttons mb-2">
                                                     <button class="btn btn-info text-white">View Details</button>
                                                     <button class="btn btn-outline-info ml-2">Book Now</button>
+                                                </div>
+
+                                                <div class="admin-buttons" sec:authorize="hasAuthority('ADMIN')">
+
+                                                    <a th:href="@{/hotels/edit/{id}(id=${hotel.id})}"
+                                                            sec:authorize="hasAuthority('ADMIN')"
+                                                            class="btn btn-success">Edit</a>
+
+                                                    <a sec:authorize="hasAuthority('ADMIN')">
+                                                        <button class="open-delete-hotel-dialog btn btn-danger ml-2"
+                                                                type="button"
+                                                                data-toggle="modal"
+                                                                data-target="#deleteHotelModal"
+                                                                th:data-id="*{hotel.id}">Delete
+                                                        </button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -149,6 +169,11 @@ $(this).toggleClass('active');
         </div>
     </div>
 </div>
+
+
+<!--Delete hotel-->
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="hotel/hotels-delete :: delete-hotel"></div>
+<!--Delete hotel-->
 
 </body>
 </html>

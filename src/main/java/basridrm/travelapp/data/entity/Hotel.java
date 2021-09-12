@@ -39,6 +39,11 @@ public class Hotel extends BaseEntity {
     )
     private List<Room> rooms;
 
+    @PreRemove
+    private void removeHotelFromDestination() {
+        this.destination.getHotels().remove(this);
+    }
+
     public Hotel() {
     }
 

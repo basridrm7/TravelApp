@@ -218,6 +218,8 @@ body {
 }
 
 .card-hotel .card-hotel-img {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     overflow: hidden;
     position: relative;
     background: #000;
@@ -286,10 +288,41 @@ body {
     color: #6c757d;
 }
 
+.card-hotel-buttons .user-buttons .btn-info {
+    min-width: 111px;
+    max-width: 111px;
+}
+
+.card-hotel-buttons .user-buttons .btn-outline-info {
+    min-width: 99px;
+    max-width: 99px;
+}
+
+.card-hotel-buttons .admin-buttons .btn-success {
+    min-width: 111px;
+    max-width: 111px;
+}
+
+.card-hotel-buttons .admin-buttons .btn-danger {
+    min-width: 99px;
+    max-width: 99px;
+}
+
+#hotels-edit-page-section {
+    background: #fafafa;
+}
+
+#hotels-add-page-section {
+    background: #fafafa;
+}
 /* --- HOTELS END ---*/
 
 /* --- DELETE MODAL ---*/
 #deleteModal .modal-header .icon-box i {
+    font-size: 86px;
+}
+
+#deleteHotelModal .modal-header .icon-box i {
     font-size: 86px;
 }
 

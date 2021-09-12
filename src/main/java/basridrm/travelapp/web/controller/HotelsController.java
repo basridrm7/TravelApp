@@ -1,8 +1,11 @@
 package basridrm.travelapp.web.controller;
 
+import basridrm.travelapp.data.entity.Hotel;
+import basridrm.travelapp.dto.binding.DestinationBindingModel;
 import basridrm.travelapp.dto.binding.HotelBindingModel;
 import basridrm.travelapp.service.implementations.DestinationServiceImpl;
 import basridrm.travelapp.service.implementations.HotelServiceImpl;
+import javassist.NotFoundException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +60,37 @@ public class HotelsController {
         }
 
         this.hotelService.addHotel(hotelBindingModel);
+        return "redirect:/hotels";
+    }
+
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getEditHotelForm(@PathVariable("id") Long hotelId, Model model) throws NotFoundException {
+        model.addAttribute("hotelsEditForm", this.hotelService.findById(hotelId));
+        model.addAttribute("destinations", this.destinationService.findAll());
+        return "hotel/hotels-edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String saveEditedHotel(@Valid @ModelAttribute("hotelsEditForm") HotelBindingModel hotelBindingModel,
+                                  BindingResult bindingResult,
+                                  @PathVariable("id") Long hotelId, Model model) throws NotFoundException {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("hotelsEditForm", hotelBindingModel);
+            model.addAttribute("destinations", this.destinationService.findAll());
+            return "hotel/hotels-edit";
+        }
+
+        this.hotelService.editHotel(hotelId, hotelBindingModel);
+        return "redirect:/hotels";
+    }
+
+    @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteHotel(@ModelAttribute(name="deleteHotelId") Long deleteHotelId) {
+
+        this.hotelService.deleteHotel(deleteHotelId);
         return "redirect:/hotels";
     }
 }
