@@ -10,11 +10,6 @@
 <!-- EO: Navbar -->
 <body style="background-image: none">
 
-<!--$('.dest-menu .text-uppercase a').on('click', '.card-link', function () {
-$(this).siblings().removeClass('active');
-$(this).toggleClass('active');
-});-->
-
 <script type="text/javascript">
     $(document).ready(function () {
         let navlinks = document.querySelectorAll(".dest-menu .text-uppercase a");
@@ -27,7 +22,7 @@ $(this).toggleClass('active');
             }
         }
 
-        $(document).on("click", ".open-delete-hotel-dialog ", function () {
+        $(document).on("click", ".open-delete-hotel-dialog", function () {
             $("#deleteHotelId").val($(this).data('id'));
         });
     });
@@ -109,7 +104,7 @@ $(this).toggleClass('active');
 
                                     <div class="card-hotel-img d-block">
                                         <img class="card-img-top" th:src="@{${'../../images/hotel/' + hotel.imgSrc}}"
-                                             alt="Destination">
+                                             alt="Hotel">
                                         <div class="effect d-block"></div>
                                     </div>
 
@@ -130,7 +125,10 @@ $(this).toggleClass('active');
 
                                             <div class="card-hotel-buttons d-flex flex-column align-items-start">
                                                 <div class="user-buttons mb-2">
-                                                    <button class="btn btn-info text-white">View Details</button>
+                                                    <a class="btn btn-info text-white"
+                                                       th:href="@{/hotels/hotel/{id}(id=${hotel.id})}"
+                                                       sec:authorize="hasAuthority('USER')">View Details</a>
+
                                                     <button class="btn btn-outline-info ml-2">Book Now</button>
                                                 </div>
 

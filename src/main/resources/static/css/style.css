@@ -279,12 +279,12 @@ body {
     color: white;
 }
 
-.dest-menu .text-uppercase .active{
+.dest-menu .text-uppercase .active {
     font-weight: 500;
     color: #17a2b8;
 }
 
-.dest-menu .text-uppercase a{
+.dest-menu .text-uppercase a {
     color: #6c757d;
 }
 
@@ -315,7 +315,81 @@ body {
 #hotels-add-page-section {
     background: #fafafa;
 }
+
 /* --- HOTELS END ---*/
+
+/* --- HOTELS DETAILS ---*/
+@media (min-width: 992px) {
+    .rooms .col-md-6 {
+        flex: 0 0 33.333333%;
+        max-width: 50%;
+    }
+}
+
+.card-room {
+    position: relative;
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 5px;
+    border: none;
+}
+
+.card-room .card-room-img {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+    z-index: 0;
+}
+
+.card-room .card-room-img img {
+    width: 100%;
+    transition: all 0.4s ease-in-out 0s;
+}
+
+.card-room:hover .card-room-img img {
+    opacity: 0.6;
+    transform: scale(1.1);
+}
+
+.card-room .card-room-img .effect::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    transition: all 0.4s ease-in-out;
+    transform: scale(0, 1);
+}
+
+.card-room:hover .card-room-img .effect:before {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    transform: scale(1, 1);
+}
+
+.card-room .card-room-img .effect::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    transition: all 0.4s ease-in-out;
+    box-sizing: border-box;
+    transform: scale(1, 0);
+}
+
+.card-room:hover .card-room-img .effect:after {
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    transform: scale(1, 1);
+}
+
+/* --- HOTELS DETAILS END ---*/
 
 /* --- DELETE MODAL ---*/
 #deleteModal .modal-header .icon-box i {

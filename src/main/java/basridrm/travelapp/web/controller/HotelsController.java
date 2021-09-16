@@ -1,11 +1,12 @@
 package basridrm.travelapp.web.controller;
 
 import basridrm.travelapp.data.entity.Hotel;
-import basridrm.travelapp.dto.binding.DestinationBindingModel;
 import basridrm.travelapp.dto.binding.HotelBindingModel;
+import basridrm.travelapp.dto.view.HotelDetailsViewModel;
 import basridrm.travelapp.service.implementations.DestinationServiceImpl;
 import basridrm.travelapp.service.implementations.HotelServiceImpl;
 import javassist.NotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,12 @@ public class HotelsController {
 
     private final DestinationServiceImpl destinationService;
     private final HotelServiceImpl hotelService;
+    private final ModelMapper modelMapper;
 
-    public HotelsController(DestinationServiceImpl destinationService, HotelServiceImpl hotelService) {
+    public HotelsController(DestinationServiceImpl destinationService, HotelServiceImpl hotelService, ModelMapper modelMapper) {
         this.destinationService = destinationService;
         this.hotelService = hotelService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping
@@ -92,5 +95,15 @@ public class HotelsController {
 
         this.hotelService.deleteHotel(deleteHotelId);
         return "redirect:/hotels";
+    }
+
+    @GetMapping("/hotel/{id}")
+    @PreAuthorize("hasAuthority('USER')")
+    public String getDetailsModal(@PathVariable("id") Long hotelId, Model model) throws NotFoundException {
+        HotelDetailsViewModel hotel = this.modelMapper.
+                                map(this.hotelService.findById(hotelId), HotelDetailsViewModel.class);
+        model.addAttribute("hotel", hotel);
+        /*model.addAttribute("destinations", this.destinationService.findAll());*/
+        return "/hotel/hotels-details";
     }
 }

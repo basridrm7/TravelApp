@@ -14,7 +14,7 @@ public class Room extends BaseEntity {
     private RoomType roomType;
 
     @Column(name = "price", nullable = false)
-    private BigDecimal price;
+    private BigDecimal pricePerNight;
 
     @Column(name = "room_status", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -34,12 +34,12 @@ public class Room extends BaseEntity {
         this.roomType = roomType;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getPricePerNight() {
+        return pricePerNight;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPricePerNight(BigDecimal price) {
+        this.pricePerNight = price;
     }
 
     public RoomStatus getRoomStatus() {

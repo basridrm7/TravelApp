@@ -1,9 +1,8 @@
 package basridrm.travelapp.service.implementations;
 
-import basridrm.travelapp.data.entity.Destination;
-import basridrm.travelapp.data.entity.Hotel;
+import basridrm.travelapp.data.entity.*;
 import basridrm.travelapp.data.repository.HotelRepository;
-import basridrm.travelapp.dto.binding.DestinationBindingModel;
+import basridrm.travelapp.data.repository.RoomRepository;
 import basridrm.travelapp.dto.binding.HotelBindingModel;
 import basridrm.travelapp.service.HotelService;
 import javassist.NotFoundException;
@@ -20,11 +19,13 @@ public class HotelServiceImpl implements HotelService {
 
     private final HotelRepository hotelRepository;
     private final ModelMapper modelMapper;
+    private final RoomRepository roomRepository;
 
     @Autowired
-    public HotelServiceImpl(HotelRepository hotelRepository, ModelMapper modelMapper) {
+    public HotelServiceImpl(HotelRepository hotelRepository, ModelMapper modelMapper, RoomRepository roomRepository) {
         this.hotelRepository = hotelRepository;
         this.modelMapper = modelMapper;
+        this.roomRepository = roomRepository;
     }
 
     @Override
@@ -54,8 +55,14 @@ public class HotelServiceImpl implements HotelService {
     @Transactional
     public Hotel addHotel(HotelBindingModel hotelBindingModel) {
         Hotel hotel = this.modelMapper.map(hotelBindingModel, Hotel.class);
+        setRoomsInHotel(hotel);
 
         return this.hotelRepository.save(hotel);
+    }
+
+    public void setRoomsInHotel(Hotel hotel) {
+        List<Room> rooms = this.roomRepository.findAll();
+        hotel.setRooms(rooms);
     }
 
     @Override
