@@ -66,32 +66,5 @@ public class TravelAppInitialData implements CommandLineRunner {
             userRepository.save(user);
         }
 
-        // DEFAULT ROOMS
-        if(roomRepository.count() == 0) {
-            Room roomClassic = new Room();
-            roomClassic.setRoomType(RoomType.Classic);
-            roomClassic.setPricePerNight(new BigDecimal(50));
-            roomClassic.setRoomStatus(RoomStatus.AVAILABLE);
-            roomClassic.setDescription("Room of 35m2 in size for 2 people with two single beds " +
-                    "or a large double bed and an en-suite bathroom.");
-            roomRepository.save(roomClassic);
-
-            Room roomDeluxe = new Room();
-            roomDeluxe.setRoomType(RoomType.Deluxe);
-            roomDeluxe.setPricePerNight(new BigDecimal(100));
-            roomDeluxe.setRoomStatus(RoomStatus.AVAILABLE);
-            roomDeluxe.setDescription("Room of 50m2 in size for 2/3 people with one King-Size bed " +
-                    "and one single bed and an en-suite bathroom.");
-            roomRepository.save(roomDeluxe);
-
-            Room roomSuite = new Room();
-            roomSuite.setRoomType(RoomType.Suite);
-            roomSuite.setPricePerNight(new BigDecimal(200));
-            roomSuite.setRoomStatus(RoomStatus.AVAILABLE);
-            roomSuite.setDescription("Room of 80m2 in size for 3/4 people with two King-Size beds " +
-                    "and one single bed and a living room with sofa.");
-            roomRepository.save(roomSuite);
-        }
-
     }
 }

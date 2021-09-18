@@ -13,8 +13,8 @@
 <div class="page-section" id="hotels-edit-page-section">
     <div class="inner-section-secondary py-5 d-block">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-7">
                     <div class="hotel-edit-form">
                         <form th:method="post" th:action="@{/hotels/edit/{id}(id=${hotelsEditForm.id})}"
                               th:object="${hotelsEditForm}"
@@ -83,6 +83,60 @@
                                                th:errorclass="is-invalid">
                                         <div class="invalid-feedback" th:if="${#fields.hasErrors('imgSrc')}"
                                              th:errors="*{imgSrc}"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-12 col-lg-4">
+                                    <label>Classic Room Price<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">€</span>
+                                        </div>
+                                        <input type="text" id="classicRoomPricePerNight" class="form-control"
+                                               th:field="*{classicRoomPricePerNight}"
+                                               th:errorclass="is-invalid">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">.00</span>
+                                        </div>
+                                        <div th:if="${#fields.hasErrors('classicRoomPricePerNight')}"
+                                             th:errors="*{classicRoomPricePerNight}"
+                                             class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-12 col-lg-4">
+                                    <label>Deluxe Room Price<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">€</span>
+                                        </div>
+                                        <input type="text" id="deluxeRoomPricePerNight" class="form-control"
+                                               th:field="*{deluxeRoomPricePerNight}"
+                                               th:errorclass="is-invalid">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">.00</span>
+                                        </div>
+                                        <div th:if="${#fields.hasErrors('deluxeRoomPricePerNight')}"
+                                             th:errors="*{deluxeRoomPricePerNight}"
+                                             class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-12 col-lg-4">
+                                    <label>Suite Room Price<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">€</span>
+                                        </div>
+                                        <input type="text" id="suiteRoomPricePerNight" class="form-control"
+                                               th:field="*{suiteRoomPricePerNight}"
+                                               th:errorclass="is-invalid">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">.00</span>
+                                        </div>
+                                        <div th:if="${#fields.hasErrors('suiteRoomPricePerNight')}"
+                                             th:errors="*{suiteRoomPricePerNight}"
+                                             class="invalid-feedback"></div>
                                     </div>
                                 </div>
 

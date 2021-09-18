@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,7 +62,33 @@ public class HotelServiceImpl implements HotelService {
     }
 
     public void setRoomsInHotel(Hotel hotel) {
-        List<Room> rooms = this.roomRepository.findAll();
+        List<Room> rooms = new ArrayList<>();
+
+        Room roomClassic = new Room();
+        roomClassic.setRoomType(RoomType.Classic);
+        roomClassic.setPricePerNight(hotel.getClassicRoomPricePerNight());
+        roomClassic.setRoomStatus(RoomStatus.AVAILABLE);
+        roomClassic.setDescription("Room of 35m2 in size for 2 people with two single beds " +
+                "or a large double bed and an en-suite bathroom.");
+        rooms.add(roomClassic);
+
+
+        Room roomDeluxe = new Room();
+        roomDeluxe.setRoomType(RoomType.Deluxe);
+        roomDeluxe.setPricePerNight(hotel.getDeluxeRoomPricePerNight());
+        roomDeluxe.setRoomStatus(RoomStatus.AVAILABLE);
+        roomDeluxe.setDescription("Room of 50m2 in size for 2/3 people with one King-Size bed " +
+                "and one single bed and an en-suite bathroom.");
+        rooms.add(roomDeluxe);
+
+        Room roomSuite = new Room();
+        roomSuite.setRoomType(RoomType.Suite);
+        roomSuite.setPricePerNight(hotel.getSuiteRoomPricePerNight());
+        roomSuite.setRoomStatus(RoomStatus.AVAILABLE);
+        roomSuite.setDescription("Room of 80m2 in size for 3/4 people with two King-Size beds " +
+                "and one single bed and a living room with sofa.");
+        rooms.add(roomSuite);
+
         hotel.setRooms(rooms);
     }
 
@@ -77,6 +104,14 @@ public class HotelServiceImpl implements HotelService {
         hotel.setAddress(hotelBindingModel.getAddress());
         hotel.setDescription(hotelBindingModel.getDescription());
         hotel.setImgSrc(hotelBindingModel.getImgSrc());
+
+        hotel.setClassicRoomPricePerNight(hotelBindingModel.getClassicRoomPricePerNight());
+        hotel.setDeluxeRoomPricePerNight(hotelBindingModel.getDeluxeRoomPricePerNight());
+        hotel.setSuiteRoomPricePerNight(hotelBindingModel.getSuiteRoomPricePerNight());
+        hotel.getRooms().get(0).setPricePerNight(hotelBindingModel.getClassicRoomPricePerNight());
+        hotel.getRooms().get(1).setPricePerNight(hotelBindingModel.getDeluxeRoomPricePerNight());
+        hotel.getRooms().get(2).setPricePerNight(hotelBindingModel.getSuiteRoomPricePerNight());
+
         this.hotelRepository.save(hotel);
     }
 

@@ -1,6 +1,5 @@
 package basridrm.travelapp.web.controller;
 
-import basridrm.travelapp.data.entity.Hotel;
 import basridrm.travelapp.dto.binding.HotelBindingModel;
 import basridrm.travelapp.dto.view.HotelDetailsViewModel;
 import basridrm.travelapp.service.implementations.DestinationServiceImpl;
@@ -103,7 +102,7 @@ public class HotelsController {
         HotelDetailsViewModel hotel = this.modelMapper.
                                 map(this.hotelService.findById(hotelId), HotelDetailsViewModel.class);
         model.addAttribute("hotel", hotel);
-        /*model.addAttribute("destinations", this.destinationService.findAll());*/
+
         return "/hotel/hotels-details";
     }
 }

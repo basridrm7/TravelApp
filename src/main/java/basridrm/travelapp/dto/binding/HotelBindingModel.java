@@ -3,6 +3,7 @@ package basridrm.travelapp.dto.binding;
 import basridrm.travelapp.data.entity.Room;
 
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class HotelBindingModel {
@@ -27,6 +28,18 @@ public class HotelBindingModel {
     @NotBlank(message = "Image source cannot be blank")
     @Pattern(regexp = "([^\\s]+(\\.(?i)(jpe?g|png))$)", message = "Invalid image source")
     private String imgSrc;
+
+    @NotNull(message = "Price cannot be null")
+    @DecimalMin(value = "0.00", inclusive = false)
+    private BigDecimal classicRoomPricePerNight;
+
+    @NotNull(message = "Price cannot be null")
+    @DecimalMin(value = "0.00", inclusive = false)
+    private BigDecimal deluxeRoomPricePerNight;
+
+    @NotNull(message = "Price cannot be null")
+    @DecimalMin(value = "0.00", inclusive = false)
+    private BigDecimal suiteRoomPricePerNight;
 
     private List<Room> rooms;
 
@@ -79,6 +92,30 @@ public class HotelBindingModel {
 
     public void setImgSrc(String imgSrc) {
         this.imgSrc = imgSrc;
+    }
+
+    public BigDecimal getClassicRoomPricePerNight() {
+        return classicRoomPricePerNight;
+    }
+
+    public void setClassicRoomPricePerNight(BigDecimal classicRoomPricePerNight) {
+        this.classicRoomPricePerNight = classicRoomPricePerNight;
+    }
+
+    public BigDecimal getDeluxeRoomPricePerNight() {
+        return deluxeRoomPricePerNight;
+    }
+
+    public void setDeluxeRoomPricePerNight(BigDecimal deluxeRoomPricePerNight) {
+        this.deluxeRoomPricePerNight = deluxeRoomPricePerNight;
+    }
+
+    public BigDecimal getSuiteRoomPricePerNight() {
+        return suiteRoomPricePerNight;
+    }
+
+    public void setSuiteRoomPricePerNight(BigDecimal suiteRoomPricePerNight) {
+        this.suiteRoomPricePerNight = suiteRoomPricePerNight;
     }
 
     public List<Room> getRooms() {

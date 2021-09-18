@@ -26,6 +26,14 @@ public class Room extends BaseEntity {
     public Room() {
     }
 
+    public Room(RoomType roomType, BigDecimal pricePerNight,
+                RoomStatus roomStatus, String description) {
+        this.roomType = roomType;
+        this.pricePerNight = pricePerNight;
+        this.roomStatus = roomStatus;
+        this.description = description;
+    }
+
     public RoomType getRoomType() {
         return roomType;
     }
@@ -57,4 +65,5 @@ public class Room extends BaseEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

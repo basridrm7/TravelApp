@@ -3,6 +3,7 @@ package basridrm.travelapp.data.entity;
 import basridrm.travelapp.data.entity.base.BaseEntity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,18 @@ public class Hotel extends BaseEntity {
     @Column(name = "image_source", nullable = false, unique = true)
     private String imgSrc;
 
-    @ManyToMany(targetEntity = Room.class, fetch = FetchType.EAGER)
+    @Column(name = "classic_price", nullable = false)
+    private BigDecimal classicRoomPricePerNight;
+
+    @Column(name = "deluxe_price", nullable = false)
+    private BigDecimal deluxeRoomPricePerNight;
+
+    @Column(name = "suite_price", nullable = false)
+    private BigDecimal suiteRoomPricePerNight;
+
+
+    @ManyToMany(targetEntity = Room.class, fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
     @JoinTable(
             name = "hotel_rooms",
             joinColumns = @JoinColumn(
@@ -85,6 +97,30 @@ public class Hotel extends BaseEntity {
 
     public void setImgSrc(String imgSrc) {
         this.imgSrc = imgSrc;
+    }
+
+    public BigDecimal getClassicRoomPricePerNight() {
+        return classicRoomPricePerNight;
+    }
+
+    public void setClassicRoomPricePerNight(BigDecimal classicRoomPricePerNight) {
+        this.classicRoomPricePerNight = classicRoomPricePerNight;
+    }
+
+    public BigDecimal getDeluxeRoomPricePerNight() {
+        return deluxeRoomPricePerNight;
+    }
+
+    public void setDeluxeRoomPricePerNight(BigDecimal deluxeRoomPricePerNight) {
+        this.deluxeRoomPricePerNight = deluxeRoomPricePerNight;
+    }
+
+    public BigDecimal getSuiteRoomPricePerNight() {
+        return suiteRoomPricePerNight;
+    }
+
+    public void setSuiteRoomPricePerNight(BigDecimal suiteRoomPricePerNight) {
+        this.suiteRoomPricePerNight = suiteRoomPricePerNight;
     }
 
     public List<Room> getRooms() {
