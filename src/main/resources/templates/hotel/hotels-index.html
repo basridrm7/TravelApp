@@ -112,13 +112,24 @@
                                         <div class="card-body">
                                             <div class="hotel-info text-left text-dark">
                                                 <h5 class="hotel-name-text" th:text="${hotel.name}"></h5>
-                                                <div class="hotel-dest">
-                                                <span class="icon d-inline-block">
-                                                <i class="fas fa-map-marker-alt text-info"></i>
-                                                    </span>
-                                                    <h6 class="hotel-dest-text d-inline-block text-info"
-                                                        th:text="${hotel.destination.name}"></h6>
+
+                                                <div class="hotel-dest-and-min-price">
+                                                    <div class="hotel-dest">
+                                                        <span class="icon d-inline-block">
+                                                            <i class="fas fa-map-marker-alt text-info"></i>
+                                                        </span>
+                                                        <h6 class="hotel-dest-text d-inline-block text-info"
+                                                            th:text="${hotel.destination.name}"></h6>
+                                                    </div>
+                                                    <div class="hotel-min-price">
+                                                        <span class="icon d-inline-block">
+                                                            <i class="fas fa-euro-sign text-info"></i>
+                                                        </span>
+                                                        <h6 class="hotel-min-price-text d-inline-block text-info"
+                                                            th:text="${'From €' + hotel.classicRoomPricePerNight.setScale(0) + '/night'}"></h6>
+                                                    </div>
                                                 </div>
+
                                                 <p class="text-secondary mb-1"
                                                    th:text="${#strings.abbreviate(hotel.description, 94)}"></p>
                                             </div>
@@ -129,14 +140,16 @@
                                                        th:href="@{/hotels/hotel/{id}(id=${hotel.id})}"
                                                        sec:authorize="hasAuthority('USER')">View Details</a>
 
-                                                    <button class="btn btn-outline-info ml-2">Book Now</button>
+                                                    <a class="btn btn-outline-info ml-2"
+                                                       th:href="@{/booking}"
+                                                       sec:authorize="hasAuthority('USER')">Book Now</a>
                                                 </div>
 
                                                 <div class="admin-buttons" sec:authorize="hasAuthority('ADMIN')">
 
                                                     <a th:href="@{/hotels/edit/{id}(id=${hotel.id})}"
-                                                            sec:authorize="hasAuthority('ADMIN')"
-                                                            class="btn btn-success">Edit</a>
+                                                       sec:authorize="hasAuthority('ADMIN')"
+                                                       class="btn btn-success">Edit</a>
 
                                                     <a sec:authorize="hasAuthority('ADMIN')">
                                                         <button class="open-delete-hotel-dialog btn btn-danger ml-2"

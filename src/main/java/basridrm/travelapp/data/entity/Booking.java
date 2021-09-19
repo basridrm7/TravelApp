@@ -14,6 +14,12 @@ public class Booking extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "surname", nullable = false)
+    private String surname;
+
     @Temporal(TemporalType.DATE)
     @Column(name="check_in_date")
     private Date checkIn;
@@ -22,12 +28,18 @@ public class Booking extends BaseEntity {
     @Column(name="check_out_date")
     private Date checkOut;
 
-    @ManyToOne(targetEntity = Hotel.class)
-    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    private Hotel hotel;
+    @ManyToOne(targetEntity = Room.class)
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    private Room room;
+
+    @Column(name = "guests", nullable = false)
+    private Integer guests;
+
+    @Column(name = "phone_number", unique = true, nullable = false)
+    private String phoneNumber;
 
     @Column(name = "booking_price", nullable = false)
-    private BigDecimal price;
+    private BigDecimal totalPrice;
 
     public Booking() {
     }
@@ -38,6 +50,22 @@ public class Booking extends BaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public Date getCheckIn() {
@@ -56,19 +84,35 @@ public class Booking extends BaseEntity {
         this.checkOut = checkOut;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Integer getGuests() {
+        return guests;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setGuests(Integer guests) {
+        this.guests = guests;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal price) {
+        this.totalPrice = price;
     }
 }

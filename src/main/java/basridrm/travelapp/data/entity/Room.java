@@ -20,6 +20,9 @@ public class Room extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoomStatus roomStatus;
 
+    @Column(name = "max_occupancy", nullable = false)
+    private Integer maxOccupancy;
+
     @Column(name = "description", nullable = false)
     private String description;
 
@@ -27,10 +30,11 @@ public class Room extends BaseEntity {
     }
 
     public Room(RoomType roomType, BigDecimal pricePerNight,
-                RoomStatus roomStatus, String description) {
+                RoomStatus roomStatus, Integer maxOccupancy, String description) {
         this.roomType = roomType;
         this.pricePerNight = pricePerNight;
         this.roomStatus = roomStatus;
+        this.maxOccupancy = maxOccupancy;
         this.description = description;
     }
 
@@ -56,6 +60,14 @@ public class Room extends BaseEntity {
 
     public void setRoomStatus(RoomStatus roomStatus) {
         this.roomStatus = roomStatus;
+    }
+
+    public Integer getMaxOccupancy() {
+        return maxOccupancy;
+    }
+
+    public void setMaxOccupancy(Integer maxOccupancy) {
+        this.maxOccupancy = maxOccupancy;
     }
 
     public String getDescription() {
