@@ -9,12 +9,12 @@ import javax.validation.constraints.*;
         message = "The passwords do not match")
 public class UserRegisterBindingModel {
 
-    @NotBlank(message = "Name cannot be blank")
-    @Size(min = 2,max = 15, message = "Name length must be between 2 and 15 characters")
+    @NotBlank(message = "First Name cannot be blank")
+    @Size(min = 2,max = 15, message = "First Name length must be between 2 and 15 characters")
     private String name;
 
-    @NotBlank(message = "Surname cannot be blank")
-    @Size(min = 2,max = 15, message = "Surname length must be between 2 and 15 characters")
+    @NotBlank(message = "Last Name cannot be blank")
+    @Size(min = 2,max = 15, message = "Last Name length must be between 2 and 15 characters")
     private String surname;
 
     @NotBlank(message = "City cannot be blank")

@@ -53,7 +53,7 @@ public class HotelsController {
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String saveAddedHotel(@Valid @ModelAttribute("hotelsAddForm") HotelBindingModel hotelBindingModel,
-                                       BindingResult bindingResult, Model model) {
+                                 BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("hotelsAddForm", hotelBindingModel);
@@ -98,9 +98,9 @@ public class HotelsController {
 
     @GetMapping("/hotel/{id}")
     @PreAuthorize("hasAuthority('USER')")
-    public String getDetailsModal(@PathVariable("id") Long hotelId, Model model) throws NotFoundException {
+    public String getHotelDetailsPage(@PathVariable("id") Long hotelId, Model model) throws NotFoundException {
         HotelDetailsViewModel hotel = this.modelMapper.
-                                map(this.hotelService.findById(hotelId), HotelDetailsViewModel.class);
+                map(this.hotelService.findById(hotelId), HotelDetailsViewModel.class);
         model.addAttribute("hotel", hotel);
 
         return "/hotel/hotels-details";

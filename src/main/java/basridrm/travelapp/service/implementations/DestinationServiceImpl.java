@@ -79,10 +79,10 @@ public class DestinationServiceImpl implements DestinationService {
                 .collect(Collectors.toList());
     }
 
-    public boolean imageSourceExists(String imgSrc) {
+    /*public boolean imageSourceExists(String imgSrc) {
         String path = "classpath:/images/destination/" + imgSrc;
         Path pathCheck = Paths.get(path);
 
         return Files.exists(pathCheck);
-    }
+    }*/
 }

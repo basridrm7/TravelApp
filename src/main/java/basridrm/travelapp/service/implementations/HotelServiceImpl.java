@@ -68,6 +68,7 @@ public class HotelServiceImpl implements HotelService {
         roomClassic.setRoomType(RoomType.Classic);
         roomClassic.setPricePerNight(hotel.getClassicRoomPricePerNight());
         roomClassic.setRoomStatus(RoomStatus.AVAILABLE);
+        roomClassic.setImgSrc("../../images/room/classic.jpg");
         roomClassic.setDescription("Room of 35m2 in size for 2 people with two single beds " +
                 "or a large double bed and an en-suite bathroom.");
         roomClassic.setMaxOccupancy(2);
@@ -81,11 +82,13 @@ public class HotelServiceImpl implements HotelService {
         roomDeluxe.setDescription("Room of 50m2 in size for 2/3 people with one King-Size bed " +
                 "and one single bed and an en-suite bathroom.");
         roomDeluxe.setMaxOccupancy(3);
+        roomDeluxe.setImgSrc("../../images/room/deluxe.jpg");
         rooms.add(roomDeluxe);
 
         Room roomSuite = new Room();
         roomSuite.setRoomType(RoomType.Suite);
         roomSuite.setPricePerNight(hotel.getSuiteRoomPricePerNight());
+        roomSuite.setImgSrc("../../images/room/suite.jpg");
         roomSuite.setRoomStatus(RoomStatus.AVAILABLE);
         roomSuite.setDescription("Room of 80m2 in size for 4/5 people with two King-Size beds " +
                 "and one single bed and a living room with sofa.");

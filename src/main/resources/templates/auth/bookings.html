@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:include="~{fragments/head}"/>
+
+<!-- Navbar -->
+<th:block th:include="~{fragments/navbar}"/>
+<!-- EO: Navbar -->
+<body style="background-image: none">
+
+<div class="page-section">
+    <div class="inner-section py-5 d-block">
+        <div class="page-heading text-center mb-4">
+            <h2 class="text-dark">MY BOOKINGS</h2>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div th:if="${usersBookings.isEmpty()}">
+                    <h3 class="no-bookings-text text-danger text-center">You have not booked a hotel yet!</h3>
+
+                    <h4 class="text-dark text-center">Choose your next hotel from
+                        <span><a class="text-info" th:href="@{/hotels}">here</a></span>!
+                    </h4>
+
+                </div>
+                <div class="bookings bg-light border rounded shadow py-3 py-lg-3 col-md-9 col-lg-9 mb-4 mb-lg-4"
+                     th:each="booking : ${usersBookings}">
+                    <div class="row px-2 px-lg-2">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="booking-hotel-image">
+                                <img class="w-100 rounded"
+                                     th:src="@{${'../../images/hotel/' + booking.getRoom().getHotel().imgSrc}}"
+                                     alt="Hotel">
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <div class="booking-hotel-info">
+                                <h5 class="mt-2" th:text="${booking.getRoom().getHotel().name}"></h5>
+
+                                <div class="hotel-dest">
+                                                    <span class="icon d-inline-block">
+                                                        <i class="fas fa-map-marker-alt text-info"></i>
+                                                    </span>
+                                    <h6 class="hotel-destination-name-text d-inline-block text-info"
+                                        th:text="${booking.getRoom().getHotel().destination.name}">
+                                    </h6>
+                                </div>
+
+                                <div class="hotel-address">
+                                                <span class="icon d-inline-block">
+                                                    <i class="fas fa-map-pin text-info"></i>
+                                                </span>
+                                    <h6 class="hotel-address-text d-inline-block text-info"
+                                        th:text="${booking.getRoom().getHotel().address}">
+                                    </h6>
+                                </div>
+
+                                <hr>
+                                <div class="booking-date-info">
+                                    <h6 class="booking-date-checkin"
+                                        th:text="'Check In Date: ' + ${#temporals.format(booking.checkIn, 'dd-MMM-yyyy', new java.util.Locale('en', 'EN'))}">
+                                    </h6>
+                                    <h6 class="booking-date-checkout"
+                                        th:text="'Check Out Date: ' + ${#temporals.format(booking.checkOut, 'dd-MMM-yyyy', new java.util.Locale('en', 'EN'))}">
+                                    </h6>
+                                </div>
+
+                                <div class="booking-room-info">
+                                    <h6 class="booking-room-type"
+                                        th:text="'Room Type: ' + ${booking.getRoom().getRoomType()}">
+                                    </h6>
+                                    <h6 class="booking-guests-number"
+                                        th:text="'Guests: ' + ${booking.guests}">
+                                    </h6>
+                                    <h6 class="booking-price"
+                                        th:text="'Price: ' + ${booking.getTotalPrice()} + '€'">
+                                    </h6>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

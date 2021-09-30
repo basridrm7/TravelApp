@@ -22,44 +22,41 @@
                 <div class="col-md-10 col-lg-10">
                     <div class="booking-hotel-form">
                         <form class="bg-light border rounded shadow py-4 py-lg-4"
-                              th:method="post">
+                              th:method="post" th:action="@{/booking/hotel/{id}(id=${hotel.id})}"
+                              th:object="${hotelBookingForm}">
 
                             <!-- Hotel Details -->
                             <div class="booking-hotel-details col-md-12 col-lg-12">
                                 <div class="row px-2 px-lg-2">
                                     <div class="col-md-12 col-lg-5">
                                         <div class="booking-hotel-image">
-                                            <img class="w-100 rounded" th:src="@{${'../../images/hotel/hotel1.jpg'}}"
+                                            <img class="w-100 rounded" th:src="@{${'../../images/hotel/' + hotel.imgSrc}}"
                                                  alt="Hotel">
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-lg-7">
                                         <div class="booking-hotel-info">
-                                            <h3 class="mt-2">Hotel Name</h3>
+                                            <h4 class="mt-2" th:text="${hotel.name}"></h4>
 
                                             <div class="hotel-dest">
                                                     <span class="icon d-inline-block">
                                                         <i class="fas fa-map-marker-alt text-info"></i>
                                                     </span>
-                                                <h4 class="hotel-destination-name-text d-inline-block text-info">
-                                                    Destination</h4>
+                                                <h5 class="hotel-destination-name-text d-inline-block text-info"
+                                                    th:text="${hotel.destination.name}">
+                                                </h5>
                                             </div>
 
                                             <div class="hotel-address">
                                                 <span class="icon d-inline-block">
                                                     <i class="fas fa-map-pin text-info"></i>
                                                 </span>
-                                                <h5 class="hotel-address-text d-inline-block text-info">Hotel
-                                                    Address</h5>
+                                                <h6 class="hotel-address-text d-inline-block text-info"
+                                                    th:text="${hotel.address}">
+                                                </h6>
                                             </div>
 
-                                            <p class="hotel-description text-secondary">Lorem ipsum dolor sit amet,
-                                                consectetur
-                                                adipisicing elit. Accusantium aliquam, aliquid aspernatur assumenda
-                                                consectetur
-                                                eius iste labore nemo nisi non nulla officia, optio pariatur quasi
-                                                reiciendis
-                                                sit sunt tempore vitae.</p>
+                                            <p class="hotel-description text-secondary" th:text="${hotel.description}"></p>
                                         </div>
                                     </div>
                                     <hr class="bg-grey w-100 mx-3 mx-lg-3">
@@ -79,57 +76,79 @@
                                                 <div class="mb-3 col-md-6 col-lg-6">
                                                     <label>First Name<span class="text-danger">*</span></label>
                                                     <input type="text" name="name" class="form-control"
-                                                           placeholder="Enter First Name">
+                                                           placeholder="Enter First Name"
+                                                           th:value="*{name}"
+                                                           th:errorclass="is-invalid">
+                                                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                                         class="invalid-feedback"></div>
                                                 </div>
 
                                                 <div class="mb-3 col-md-6 col-lg-6">
                                                     <label>Last Name<span class="text-danger">*</span></label>
-                                                    <input type="text" name="name" class="form-control"
-                                                           placeholder="Enter Last Name">
+                                                    <input type="text" name="surname" class="form-control"
+                                                           placeholder="Enter Last Name"
+                                                           th:value="*{surname}"
+                                                           th:errorclass="is-invalid">
+                                                    <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"
+                                                         class="invalid-feedback"></div>
                                                 </div>
 
                                                 <div class="mb-3 col-md-6 col-lg-6">
                                                     <label>Check In<span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="date" required>
+                                                    <input class="form-control" type="date"
+                                                           th:field="*{checkIn}"
+                                                           th:errorclass="is-invalid">
+                                                    <div th:if="${#fields.hasErrors('checkIn')}" th:errors="*{checkIn}"
+                                                         class="invalid-feedback"></div>
                                                 </div>
 
                                                 <div class="mb-3 col-md-6 col-lg-6">
                                                     <label>Check Out<span class="text-danger">*</span></label>
-                                                    <input class="form-control" type="date" required>
+                                                    <input class="form-control" type="date"
+                                                           th:field="*{checkOut}"
+                                                           th:errorclass="is-invalid">
+                                                    <div th:if="${#fields.hasErrors('checkOut')}" th:errors="*{checkOut}"
+                                                         class="invalid-feedback"></div>
                                                 </div>
 
-                                                <div class="mb-3 col-md-4 col-lg-4">
+                                                <!--<div class="mb-3 col-md-4 col-lg-4">
                                                     <label for="roomType">
                                                         Room Type
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <select class="form-control" id="roomType"
-                                                            name="roomType">
-                                                        <option>Classic Room</option>
-                                                        <option>Deluxe Room</option>
-                                                        <option>Suite Room</option>
+                                                            name="roomType"
+                                                            th:field="*{room.id}">
+                                                        <option th:each="room : ${hotel.getRooms()}"
+                                                                th:value="${room.id}"
+                                                                th:text="${room.getRoomType().toString()}"></option>
                                                     </select>
-                                                </div>
+                                                </div>-->
 
-                                                <div class="mb-3 col-md-4 col-lg-4">
+                                                <div class="mb-3 col-md-6 col-lg-6">
                                                     <label for="guestNumber">
                                                         Guests
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <select class="form-control" id="guestNumber"
-                                                            name="guestNumber">
-                                                        <option>1 Person</option>
-                                                        <option>2 People</option>
-                                                        <option>3 People</option>
-                                                        <option>4 People</option>
-                                                        <option>5 People</option>
+                                                            name="guestNumber"
+                                                            th:field="*{guests}">
+                                                        <option th:value="1" th:text="1"></option>
+                                                        <option th:value="2" th:text="2"></option>
+                                                        <option th:value="3" th:text="3"></option>
+                                                        <option th:value="4" th:text="4"></option>
+                                                        <option th:value="5" th:text="5"></option>
                                                     </select>
                                                 </div>
 
-                                                <div class="mb-3 col-md-4 col-lg-4">
+                                                <div class="mb-3 col-md-6 col-lg-6">
                                                     <label>Phone Number<span class="text-danger">*</span></label>
-                                                    <input type="text" name="name" class="form-control"
-                                                           placeholder="Enter Phone Number">
+                                                    <input type="text" name="phoneNumber" class="form-control"
+                                                           placeholder="Enter Phone Number"
+                                                           th:value="*{phoneNumber}"
+                                                           th:errorclass="is-invalid">
+                                                    <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                                                         class="invalid-feedback"></div>
                                                 </div>
 
                                                 <div class="col-md-12 d-flex justify-content-center">

@@ -36,19 +36,9 @@ public class Hotel extends BaseEntity {
     private BigDecimal suiteRoomPricePerNight;
 
 
-    @ManyToMany(targetEntity = Room.class, fetch = FetchType.EAGER,
+    @OneToMany(targetEntity = Room.class, fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "hotel_rooms",
-            joinColumns = @JoinColumn(
-                    name = "hotel_id",
-                    referencedColumnName = "id"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "room_id",
-                    referencedColumnName = "id"
-            )
-    )
+    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
     private List<Room> rooms;
 
     @PreRemove

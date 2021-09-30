@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<th:block th:include="~{fragments/head}"/>
+
+<!-- Navbar -->
+<th:block th:include="~{fragments/navbar}"/>
+<!-- EO: Navbar -->
+<body style="background-image: none">
+
+<div class="page-section">
+    <div class="inner-section py-5 d-block">
+        <div class="page-heading text-center mb-4">
+            <h2 class="text-dark">AVAILABLE ROOMS</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 px-4 px-lg-4">
+
+                    <div class="rooms-heading">
+                        <h4 class="text-center mb-4 text-info">Choose your room</h4>
+                    </div>
+
+                    <div class="rooms row justify-content-center">
+
+                        <div class="col-md-6 col-lg-4 py-3 py-lg-3 d-flex justify-content-center flex-column"
+                             th:each="room : ${rooms}">
+                            <!-- Card -->
+                            <div class="card-room h-100 border-0">
+
+                                <form th:action="@{/booking/bookHotel/{roomId}(roomId=${room.id})}" method="post">
+                                    <input type="hidden" id="bookingId" name="bookingId" th:value="${bookingId}">
+
+                                    <div class="card-room-img d-block">
+                                        <img class="rounded w-100" th:src="${room.getImgSrc()}">
+                                    </div>
+
+                                    <div class="effect d-block"></div>
+
+
+                                    <div class="card-details">
+                                        <div class="card-body">
+                                            <div class="room-info">
+                                                <h4 class="text-center text-info"
+                                                    th:text="${room.getRoomType().toString() + ' Room'}"></h4>
+                                                <h6 class="text-center text-info text-uppercase"
+                                                    th:text="${'€' + room.getPricePerNight().setScale(0) + ' / night'}"></h6>
+                                                <p class="text-secondary mb-1 text-center"
+                                                   th:text="${room.description}"></p>
+                                            </div>
+                                            <div class="booking-button text-center">
+                                                <button class="btn btn-info" type="submit">Book Room</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Card END -->
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

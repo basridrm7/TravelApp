@@ -42,9 +42,9 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/hotels}">Hotels</a>
                 </li>
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link" th:href="@{/trip-finder}">Trip Finder</a>
-                </li>
+                </li>-->
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/about}">About</a>
                 </li>
@@ -71,17 +71,21 @@
 
                         <div class="dropdown-menu">
 
-                                <form th:action="@{/logout}" method="post">
-                                    <button type="submit" class="dropdown-item text-left">
-                                        <i class="fa fa-sign-out-alt text-info"></i>
-                                        Logout
-                                    </button>
-                                </form>
-
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="dropdown-item text-left">
+                                    <i class="fa fa-sign-out-alt text-info"></i>
+                                    Logout
+                                </button>
+                            </form>
 
                             <a class="dropdown-item text-left" th:href="@{/auth/profile}">
                                 <i class="fa fa-user text-info"></i>
                                 View Profile
+                            </a>
+
+                            <a class="dropdown-item text-left" th:href="@{/auth/bookings}">
+                                <i class="fas fa-globe-americas text-info"></i>
+                                Bookings
                             </a>
 
                             <div class="dropdown-divider" sec:authorize="hasAuthority('ADMIN')"></div>

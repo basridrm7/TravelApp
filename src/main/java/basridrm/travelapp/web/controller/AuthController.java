@@ -3,6 +3,7 @@ package basridrm.travelapp.web.controller;
 import basridrm.travelapp.data.entity.User;
 import basridrm.travelapp.dto.binding.auth.UserRegisterBindingModel;
 import basridrm.travelapp.dto.view.UserProfileViewModel;
+import basridrm.travelapp.service.implementations.BookingServiceImpl;
 import basridrm.travelapp.service.implementations.UserServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -27,10 +28,12 @@ public class AuthController {
     //private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     private final UserServiceImpl userService;
     private final ModelMapper modelMapper;
+    private final BookingServiceImpl bookingService;
 
-    public AuthController(UserServiceImpl userService, ModelMapper modelMapper) {
+    public AuthController(UserServiceImpl userService, ModelMapper modelMapper, BookingServiceImpl bookingService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.bookingService = bookingService;
     }
 
     @GetMapping("/login")
@@ -84,10 +87,17 @@ public class AuthController {
     @GetMapping("/auth/profile")
     public String getProfile(Principal principal, Model model) {
         UserProfileViewModel user = this.modelMapper
-                                    .map(this.userService.loadUserByUsername(principal.getName()),
-                                            UserProfileViewModel.class);
+                .map(this.userService.loadUserByUsername(principal.getName()),
+                        UserProfileViewModel.class);
         model.addAttribute("userProfile", user);
         return "auth/profile";
+    }
+
+    @GetMapping("/auth/bookings")
+    public String getBookings(Principal principal, Model model) {
+
+        model.addAttribute("usersBookings", this.bookingService.findAllByUser(principal.getName()));
+        return "auth/bookings";
     }
 
     @InitBinder

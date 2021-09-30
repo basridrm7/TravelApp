@@ -105,8 +105,6 @@ public class User extends BaseEntity implements UserDetails {
         this.roles = roles;
     }
 
-    // Spring Security
-
     @Override
     public boolean isAccountNonExpired() {
         return true;

@@ -1,50 +1,58 @@
-package basridrm.travelapp.data.entity;
+package basridrm.travelapp.dto.binding;
 
-import basridrm.travelapp.data.entity.base.BaseEntity;
+import basridrm.travelapp.data.entity.Room;
+import basridrm.travelapp.data.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "bookings")
-public class Booking extends BaseEntity {
+public class BookingBindingModel {
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Long id;
+
     private User user;
 
-    @Column(name = "name", nullable = false)
+    @NotBlank(message = "First Name cannot be blank")
+    @Size(min = 2,max = 15, message = "First Name length must be between 2 and 15 characters")
     private String name;
 
-    @Column(name = "surname", nullable = false)
+    @NotBlank(message = "Last Name cannot be blank")
+    @Size(min = 2,max = 15, message = "Last Name length must be between 2 and 15 characters")
     private String surname;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Column(name="check_in_date", nullable = false)
+    @Future(message = "Please select a date in the future")
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private LocalDate checkIn;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Column(name="check_out_date", nullable = false)
+    @Future(message = "Please select a date in the future")
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private LocalDate checkOut;
 
-    @ManyToOne(targetEntity = Room.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "room_id", referencedColumnName = "id")
     private Room room;
 
-    @Column(name = "guests", nullable = false)
     private Integer guests;
 
-    @Column(name = "phone_number", nullable = false)
+    @NotBlank(message = "Phone number cannot be blank")
+    @Pattern(regexp = "([ 0-9]){8,11}$", message = "Invalid phone number")
+    @Size(max = 10 ,message = "Phone number should be maximum of 10 digits")
     private String phoneNumber;
 
-    @Column(name = "booking_price")
     private BigDecimal totalPrice;
 
-    private boolean isFinished;
+    public BookingBindingModel() {
+    }
 
-    public Booking() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -115,15 +123,7 @@ public class Booking extends BaseEntity {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal price) {
-        this.totalPrice = price;
-    }
-
-    public boolean isFinished() {
-        return isFinished;
-    }
-
-    public void setFinished(boolean finished) {
-        isFinished = finished;
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

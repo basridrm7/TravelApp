@@ -61,7 +61,7 @@
                         <!-- Section: Destinations End -->
 
                         <!-- Section: Price -->
-                        <section class="mb-5">
+                        <!--<section class="mb-5">
 
                             <h5 class="mb-3 text-dark">Price</h5>
 
@@ -90,7 +90,7 @@
                                     Above</label>
                             </div>
 
-                        </section>
+                        </section>-->
                         <!-- Section: Price End -->
                     </div>
 
@@ -141,7 +141,7 @@
                                                        sec:authorize="hasAuthority('USER')">View Details</a>
 
                                                     <a class="btn btn-outline-info ml-2"
-                                                       th:href="@{/booking}"
+                                                       th:href="@{/booking/hotel/{id}(id=${hotel.id})}"
                                                        sec:authorize="hasAuthority('USER')">Book Now</a>
                                                 </div>
 

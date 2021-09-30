@@ -8,16 +8,37 @@
 <!-- Navbar -->
 <th:block th:include="~{fragments/navbar}"/>
 <!-- EO: Navbar -->
-<body>
+<body style="background-image: none">
 
-<div class="page">
-    <div class="page-section">
-        <div class="inner-section mt-5 d-block">
-            <div class="page-heading text-center">
-                <h2>ABOUT US</h2>
-            </div>
-            <div class="container">
-
+<div class="page-section">
+    <div class="inner-section py-5 d-block">
+        <div class="page-heading text-center mb-4">
+            <h2 class="text-dark">ABOUT US</h2>
+            <p class="secondary-heading text-info">A Bit About Travelista</p>
+        </div>
+        <div class="container">
+            <div class="row bg-light rounded shadow py-4 py-lg-4 justify-content-center">
+                <div class="col-md-12 col-lg-12">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="about-image">
+                                <img class="w-100 rounded"
+                                     th:src="@{../../images/about-photo.jpeg}"
+                                     alt="About">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <h4 class="text-info mb-3">Once-in-a-lifetime journeys</h4>
+                            <p>We design once-in-a-lifetime journeys for individuals who appreciate luxury
+                                in all its forms. Whether you’re looking for meaningful time with your loved ones
+                                or the chance to reconnect with yourself, returning to the wild or meeting
+                                fascinating people with different stories to tell, we design journeys for
+                                those who wish to rediscover, reconnect and take part in something bigger.
+                                Above all, we take you on journeys that get you under the skin of the place you’re
+                                visiting, and that connect you with local people, cultures and customs.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
