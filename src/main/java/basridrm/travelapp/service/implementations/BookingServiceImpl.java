@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -31,7 +32,8 @@ public class BookingServiceImpl implements BookingService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, RoomServiceImpl roomService, HotelRepository hotelRepository, RoomRepository roomRepository, UserServiceImpl userService, ModelMapper modelMapper) {
+    public BookingServiceImpl(BookingRepository bookingRepository, RoomServiceImpl roomService, HotelRepository hotelRepository, RoomRepository roomRepository,
+                              UserServiceImpl userService, ModelMapper modelMapper) {
         this.bookingRepository = bookingRepository;
         this.hotelRepository = hotelRepository;
         this.roomService = roomService;
@@ -56,21 +58,44 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingBindingModel> findAllByUser(String username) {
-        return this.bookingRepository.findAllByUser_Username(username)
+        return this.bookingRepository.findAllByUserUsername(username)
                 .stream()
                 .filter(Booking::isFinished)
                 .map(booking -> modelMapper.map(booking, BookingBindingModel.class))
                 .collect(Collectors.toList());
     }
 
-    public List<Room> findAvailableRooms(Integer guestNumber, Long hotelId, LocalDate checkIn) { //TODO: add binding model
-        List<Room> rooms = roomService.findAllByHotelId(hotelId)
-                .stream()
-                .filter(room -> room.getRoomStatus().equals(RoomStatus.AVAILABLE) || room.getBookings().stream().filter(Booking::isFinished).allMatch(booking -> booking.getCheckOut().isBefore(checkIn)))
-                .filter(room -> guestNumber <= room.getMaxOccupancy())
+    public List<Room> findAvailableRooms(Integer guestNumber, Long hotelId, LocalDate checkIn, LocalDate checkOut) {
+        return filterAvailableRooms(roomService.findAllByHotelId(hotelId).stream(), guestNumber, checkIn, checkOut)
                 .collect(Collectors.toList());
+    }
 
-        return rooms;
+    public Stream<Room> filterAvailableRooms(Stream<Room> roomStream, Integer guestNumber, LocalDate checkIn, LocalDate checkOut) {
+        return roomStream.filter(room -> filterStatus(room) || filterBookings(room, checkIn, checkOut))
+                .filter(room -> filterOccupancy(room, guestNumber));
+    }
+
+    public boolean filterOccupancy(Room room, Integer guestNumber) {
+        return guestNumber <= room.getMaxOccupancy();
+    }
+
+    public boolean filterStatus(Room room) {
+        return room.getRoomStatus().equals(RoomStatus.AVAILABLE);
+    }
+
+    public boolean filterBookings(Room room, LocalDate checkIn, LocalDate checkOut){
+        return room.getBookings()
+                .stream()
+                .filter(Booking::isFinished)
+                .allMatch(booking -> validateCheckIn(booking, checkIn) && validateCheckOut(booking, checkOut));
+    }
+
+    public boolean validateCheckIn(Booking booking, LocalDate checkIn) {
+        return !(checkIn.isAfter(booking.getCheckIn()) && checkIn.isBefore(booking.getCheckOut()));
+    }
+
+    public boolean validateCheckOut(Booking booking, LocalDate checkOut) {
+        return !(checkOut.isAfter(booking.getCheckIn()) && checkOut.isBefore(booking.getCheckOut()));
     }
 
     public Long createBooking(Principal principal, BookingBindingModel model) {
@@ -89,7 +114,7 @@ public class BookingServiceImpl implements BookingService {
                 booking.getCheckOut()));
         BigDecimal totalBookingPrice = daysBetween.multiply(roomPricePerNight);
         booking.setTotalPrice(totalBookingPrice);
-        roomService.bookRoomById(roomId, booking);
+        roomService.bookRoomById(roomId);
         booking.setFinished(true);
         Booking finishedBooking = bookingRepository.saveAndFlush(booking);
         roomService.updateRoomBooking(roomId, finishedBooking);

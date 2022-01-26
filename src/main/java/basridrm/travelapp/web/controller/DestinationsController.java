@@ -46,6 +46,7 @@ public class DestinationsController {
         }
 
         this.destinationService.addDestination(destinationBindingModel);
+        //this.destinationService.addDestination(destinationBindingModel);
         return "redirect:/destinations";
     }
 

@@ -11,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -54,16 +56,27 @@ public class BookingController {
         HotelDetailsViewModel hotel = this.modelMapper.
                 map(this.hotelService.findById(hotelId), HotelDetailsViewModel.class);
 
+        if(bookingBindingModel.getCheckIn() != null && bookingBindingModel.getCheckOut() != null) {
+            checkDateValidity(bookingBindingModel, bindingResult);
+        }
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("hotelBookingForm", bookingBindingModel);
             model.addAttribute("hotel", hotel);
             return "/booking/bookings-index";
         }
 
-        List<Room> availableRooms = bookingService.findAvailableRooms(bookingBindingModel.getGuests(), hotelId, bookingBindingModel.getCheckIn());
+        List<Room> availableRooms = bookingService.findAvailableRooms(bookingBindingModel.getGuests(), hotelId, bookingBindingModel.getCheckIn(), bookingBindingModel.getCheckOut());
         model.addAttribute("bookingId", bookingService.createBooking(principal, bookingBindingModel));
         model.addAttribute("rooms", availableRooms);
         return "/booking/availableRooms";
+    }
+
+    public void checkDateValidity(BookingBindingModel model, BindingResult bindingResult) {
+        if(model.getCheckIn().isAfter(model.getCheckOut()) || model.getCheckIn().isEqual(model.getCheckOut())) {
+            ObjectError objectError = new FieldError("hotelBookingForm", "checkIn", "Invalid Check-in date");
+            bindingResult.addError(objectError);
+        }
     }
 
     @PostMapping("/bookHotel/{roomId}")

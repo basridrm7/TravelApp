@@ -21,7 +21,7 @@ public class RoomServiceImpl {
         return roomRepository.findAll();
     }
 
-    public void bookRoomById(Long roomId, Booking booking) {
+    public void bookRoomById(Long roomId) {
         Room room = roomRepository.getById(roomId);
         room.setRoomStatus(RoomStatus.NOT_AVAILABLE);
         roomRepository.save(room);

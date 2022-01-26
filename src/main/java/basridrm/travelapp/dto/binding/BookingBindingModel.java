@@ -4,10 +4,7 @@ import basridrm.travelapp.data.entity.Room;
 import basridrm.travelapp.data.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -21,14 +18,16 @@ public class BookingBindingModel {
     @Size(min = 2,max = 15, message = "First Name length must be between 2 and 15 characters")
     private String name;
 
-    @NotBlank(message = "Last Name cannot be blank")
+    @NotEmpty(message = "Last Name cannot be blank")
     @Size(min = 2,max = 15, message = "Last Name length must be between 2 and 15 characters")
     private String surname;
 
+    @NotNull(message = "Check-in date cannot be blank")
     @Future(message = "Please select a date in the future")
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private LocalDate checkIn;
 
+    @NotNull(message = "Check-out date cannot be blank")
     @Future(message = "Please select a date in the future")
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private LocalDate checkOut;
